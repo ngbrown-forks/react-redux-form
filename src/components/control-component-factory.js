@@ -329,6 +329,8 @@ function createControlClass(s) {
 
       mapValues(asyncValidators, (validator, key) => {
         const outerDone = (valid) => {
+          // get current fieldValue as another Async validator may have already been processed.
+          const {fieldValue} = this.props;
           const validity = i.merge(fieldValue.validity, { [key]: valid });
 
           dispatch(actions.setValidity(model, validity));
